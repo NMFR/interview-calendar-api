@@ -1,0 +1,51 @@
+{
+  "name": "interview-calendar-api",
+  "version": "0.0.0",
+  "description": "An interview calendar API",
+  "homepage": "https://github.com/NMFR/interview-calendar-api#README",
+  "bugs": {
+    "url": "https://github.com/NMFR/interview-calendar-api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:NMFR/interview-calendar-api.git"
+  },
+  "main": "src/index.js",
+  "lint-staged": {
+    "src/**/*.{js,jsx,json}": [
+      "prettier --config .prettierrc --write",
+      "eslint --fix --quiet",
+      "git add"
+    ]
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "start-debug": "node --inspect=0.0.0.0:8888 src/index.js",
+    "test": "jest",
+    "format": "prettier --config .prettierrc --write \"src/**/*.{js,jsx}\"",
+    "lint": "npm run format && eslint \"src/**/*.{js,jsx,json}\"",
+    "lint-fix": "npm run format && eslint --fix --quiet \"src/**/*.{js,jsx,json}\"",
+    "precommit": "lint-staged"
+  },
+  "license": "UNLICENSED",
+  "author": "Nuno Rodrigues",
+  "dependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/register": "^7.0.0",
+    "babel-preset-env": "^1.7.0",
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "eslint": "5.6.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-react": "^7.11.1",
+    "husky": "^1.1.2",
+    "jest": "^23.6.0",
+    "lint-staged": "^7.3.0",
+    "prettier": "^1.14.3"
+  }
+}
