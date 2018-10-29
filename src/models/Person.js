@@ -15,13 +15,11 @@ class Person {
     this.calendar = calendar || new Calendar();
   }
 
-  // Returns a Calendar instance if this Person and the person's (parameter) calendar have periods of time in common,
-  //  ie will return a Calendar with DateIntervals when this Person and person (parameter) are available to meet or null if their
-  //  calendars don't have periods that intersect
-  getPossbileMeetingCalendar(person) {
+  // Returns a Calendar that intresects this person calendar with the calendar parameter, or null if there is no intersection.
+  getPossbileMeetingCalendar(calendar) {
     // TODO: check if person is a Person instance
     const intersectingCalendar =
-      this.calendar && person && this.calendar.intersection(person.calendar);
+      this.calendar && calendar && this.calendar.intersection(calendar);
 
     if (
       intersectingCalendar &&

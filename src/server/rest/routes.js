@@ -39,24 +39,21 @@ const getCandidateInterviewSchedules = wrap(async (req, res) => {
 
   candidateJson.type = Person.TYPE.CANDIDATE;
 
-  const people = await personProvider.getPossbileMeetingPeople(
+  const calendar = await personProvider.getPossbileMeetingCalendar(
     candidateJson,
     interviewersJsons
   );
 
   return res.json({
     sucess: true,
-    data: people.filter(p => !!p).map(p => ({
-      id: p.id,
-      username: p.username,
-      type: p.type,
-      calendar:
-        p.calendar &&
-        p.calendar.dateIntervals.map(dt => ({
+    data:
+      (calendar &&
+        calendar.dateIntervals &&
+        calendar.dateIntervals.map(dt => ({
           start: dt.startDate,
           end: dt.endDate,
-        })),
-    })),
+        }))) ||
+      [],
   });
 });
 

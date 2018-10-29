@@ -6,7 +6,9 @@ describe('Person', () => {
   it('new Calendar().getPossbileMeetingCalendar()', () => {
     let person = new Person(1, 'John', Person.TYPE.INTERVIEWER);
     let personToCheck = new Person(2, 'Anna', Person.TYPE.CANDIDATE);
-    expect(person.getPossbileMeetingCalendar(personToCheck)).toBeNull();
+    expect(
+      person.getPossbileMeetingCalendar(personToCheck.calendar)
+    ).toBeNull();
 
     person = new Person(
       1,
@@ -27,7 +29,9 @@ describe('Person', () => {
         new DateInterval('2018-01-05T09:00:00', '2018-01-05T10:00:00'),
       ])
     );
-    expect(person.getPossbileMeetingCalendar(personToCheck)).toBeNull();
+    expect(
+      person.getPossbileMeetingCalendar(personToCheck.calendar)
+    ).toBeNull();
 
     person = new Person(
       1,
@@ -51,7 +55,7 @@ describe('Person', () => {
         new DateInterval('2018-01-01T09:00:00', '2018-01-01T16:00:00'),
       ])
     );
-    expect(person.getPossbileMeetingCalendar(personToCheck)).toEqual(
+    expect(person.getPossbileMeetingCalendar(personToCheck.calendar)).toEqual(
       new Calendar([
         new DateInterval('2018-01-01T14:00:00', '2018-01-01T15:00:00'),
         new DateInterval('2018-01-02T13:00:00', '2018-01-02T16:00:00'),

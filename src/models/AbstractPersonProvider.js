@@ -1,5 +1,3 @@
-import Person from './Person';
-
 class AbstractPersonProvider {
   /* eslint-disable  class-methods-use-this, no-unused-vars */
   async get(idOrUsername, type) {
@@ -11,11 +9,10 @@ class AbstractPersonProvider {
   }
   /* eslint-enable  class-methods-use-this, no-unused-vars */
 
-  // Get an array of Persons with the peopleJsons (parameter) that can meet with personJson (according with their calendars).
-  //  personJson is and Object with id or username properties to indicate the Person and a optional type to ensure that person is of that type.
-  //  peopleJsons is an array of Objects with the same format personJson parameter.
-  async getPossbileMeetingPeople(personJson, peopleJsons) {
-    const res = [];
+  // personJson is and Object with id or username properties to indicate the Person and a optional type to ensure that person is of that type.
+  // peopleJsons is an array of Objects with the same format personJson parameter.
+  async getPossbileMeetingCalendar(personJson, peopleJsons) {
+    let meetingCalendar = null;
 
     if (personJson && peopleJsons && peopleJsons.length > 0) {
       // Get all Person objects in parallel:
@@ -28,30 +25,25 @@ class AbstractPersonProvider {
       const person = people[0];
 
       if (person) {
+        meetingCalendar = person.calendar;
+
         for (let i = 1; i < people.length; i += 1) {
           const otherPerson = people[i];
 
           if (otherPerson) {
-            const meetingCalendar = person.getPossbileMeetingCalendar(
-              otherPerson
+            meetingCalendar = otherPerson.getPossbileMeetingCalendar(
+              meetingCalendar
             );
 
-            if (meetingCalendar) {
-              res.push(
-                new Person(
-                  otherPerson.id,
-                  otherPerson.username,
-                  otherPerson.type,
-                  meetingCalendar
-                )
-              );
+            if (!meetingCalendar) {
+              break;
             }
           }
         }
       }
     }
 
-    return res;
+    return meetingCalendar;
   }
 }
 

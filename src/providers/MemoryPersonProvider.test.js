@@ -43,7 +43,7 @@ describe('MemoryPersonProvider', () => {
     await expect(provider.get(2)).resolves.toEqual(anna);
   });
 
-  it('new MemoryPersonProvider().getPossbileMeetingPeople()', async () => {
+  it('new MemoryPersonProvider().getPossbileMeetingCalendar()', async () => {
     const john = new Person(
       1,
       'John',
@@ -90,60 +90,49 @@ describe('MemoryPersonProvider', () => {
     const provider = new MemoryPersonProvider([john, jane, anna, felix]);
 
     await expect(
-      provider.getPossbileMeetingPeople({ id: felix.id }, [
+      provider.getPossbileMeetingCalendar({ id: felix.id }, [
         { id: john.id },
         { username: jane.username },
       ])
-    ).resolves.toEqual([]);
+    ).resolves.toBeNull();
 
     await expect(
-      provider.getPossbileMeetingPeople({ id: anna.id }, [
+      provider.getPossbileMeetingCalendar({ id: anna.id }, [{ id: john.id }])
+    ).resolves.toEqual(
+      new Calendar([
+        new DateInterval('2018-01-01T10:00:00', '2018-01-01T12:00:00'),
+        new DateInterval('2018-01-02T11:00:00', '2018-01-02T14:00:00'),
+      ])
+    );
+
+    await expect(
+      provider.getPossbileMeetingCalendar({ id: anna.id }, [
         { id: john.id },
         { username: jane.username },
       ])
-    ).resolves.toEqual([
-      new Person(
-        1,
-        'John',
-        Person.TYPE.INTERVIEWER,
-        new Calendar([
-          new DateInterval('2018-01-01T10:00:00', '2018-01-01T12:00:00'),
-          new DateInterval('2018-01-02T11:00:00', '2018-01-02T14:00:00'),
-        ])
-      ),
-      new Person(
-        2,
-        'Jane',
-        Person.TYPE.INTERVIEWER,
-        new Calendar([
-          new DateInterval('2018-01-02T12:00:00', '2018-01-02T14:00:00'),
-          new DateInterval('2018-01-05T16:00:00', '2018-01-05T20:00:00'),
-        ])
-      ),
-    ]);
+    ).resolves.toEqual(
+      new Calendar([
+        new DateInterval('2018-01-02T12:00:00', '2018-01-02T14:00:00'),
+      ])
+    );
 
     await expect(
-      provider.getPossbileMeetingPeople(
+      provider.getPossbileMeetingCalendar(
         { id: anna.id, type: Person.TYPE.INTERVIEWER },
         [{ id: john.id }, { username: jane.username }]
       )
-    ).resolves.toEqual([]);
+    ).resolves.toBeNull();
 
     await expect(
-      provider.getPossbileMeetingPeople({ id: anna.id }, [
+      provider.getPossbileMeetingCalendar({ id: anna.id }, [
         { id: john.id, type: Person.TYPE.CANDIDATE },
         { username: jane.username },
       ])
-    ).resolves.toEqual([
-      new Person(
-        2,
-        'Jane',
-        Person.TYPE.INTERVIEWER,
-        new Calendar([
-          new DateInterval('2018-01-02T12:00:00', '2018-01-02T14:00:00'),
-          new DateInterval('2018-01-05T16:00:00', '2018-01-05T20:00:00'),
-        ])
-      ),
-    ]);
+    ).resolves.toEqual(
+      new Calendar([
+        new DateInterval('2018-01-02T12:00:00', '2018-01-02T14:00:00'),
+        new DateInterval('2018-01-05T16:00:00', '2018-01-05T20:00:00'),
+      ])
+    );
   });
 });
