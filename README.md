@@ -68,6 +68,14 @@ For the code linter (eslint) with the fix option (automatically fix problems) ru
 npm run lint-fix
 ```
 
+## API
+
+API can be called at the `/candidates/<CANDIDATE>/interviews/schedules?interviewer=<INTERVIEWER_1>&interviewer=<INTERVIEWER_2>` URL. Example of a development server API call:
+
+```
+curl "localhost:3000/candidates/Carl/interviews/schedules?interviewer=Ines&interviewer=Ingrid"
+```
+
 ## Development
 
 This project uses ES6 modules.
