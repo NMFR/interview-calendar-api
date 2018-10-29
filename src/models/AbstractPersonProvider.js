@@ -14,7 +14,7 @@ class AbstractPersonProvider {
   // Get an array of Persons with the peopleJsons (parameter) that can meet with personJson (according with their calendars).
   //  personJson is and Object with id or username properties to indicate the Person and a optional type to ensure that person is of that type.
   //  peopleJsons is an array of Objects with the same format personJson parameter.
-  async getPossbileMeetingCalendars(personJson, peopleJsons) {
+  async getPossbileMeetingPeople(personJson, peopleJsons) {
     const res = [];
 
     if (personJson && peopleJsons && peopleJsons.length > 0) {

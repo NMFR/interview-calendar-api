@@ -39,12 +39,14 @@ To start the API server run:
 npm start
 ```
 
-To start the API server with inspector enabled on port 8888 run:
+To start the API server in development mode:
 ```
-npm run start-debug
+npm run start-dev
 ```
 
-This allows to debug the server via the inspector API, use vs code or chrome [chrome://inspect/#devices](chrome://inspect/#devices) for example to debug the server.
+In development mode the server will restart automatically when any code file is saved.
+Also the server is ran with the inspector API enabled on port 8888.
+This allows to connect a debugger to the server via the inspector API, vs code or chrome [chrome://inspect/#devices](chrome://inspect/#devices) can be used for example to debug the server.
 
 Run tests:
 ```

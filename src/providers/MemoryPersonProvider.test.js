@@ -43,7 +43,7 @@ describe('MemoryPersonProvider', () => {
     await expect(provider.get(2)).resolves.toEqual(anna);
   });
 
-  it('new MemoryPersonProvider().getPossbileMeetingCalendars()', async () => {
+  it('new MemoryPersonProvider().getPossbileMeetingPeople()', async () => {
     const john = new Person(
       1,
       'John',
@@ -90,14 +90,14 @@ describe('MemoryPersonProvider', () => {
     const provider = new MemoryPersonProvider([john, jane, anna, felix]);
 
     await expect(
-      provider.getPossbileMeetingCalendars({ id: felix.id }, [
+      provider.getPossbileMeetingPeople({ id: felix.id }, [
         { id: john.id },
         { username: jane.username },
       ])
     ).resolves.toEqual([]);
 
     await expect(
-      provider.getPossbileMeetingCalendars({ id: anna.id }, [
+      provider.getPossbileMeetingPeople({ id: anna.id }, [
         { id: john.id },
         { username: jane.username },
       ])
@@ -123,14 +123,14 @@ describe('MemoryPersonProvider', () => {
     ]);
 
     await expect(
-      provider.getPossbileMeetingCalendars(
+      provider.getPossbileMeetingPeople(
         { id: anna.id, type: Person.TYPE.INTERVIEWER },
         [{ id: john.id }, { username: jane.username }]
       )
     ).resolves.toEqual([]);
 
     await expect(
-      provider.getPossbileMeetingCalendars({ id: anna.id }, [
+      provider.getPossbileMeetingPeople({ id: anna.id }, [
         { id: john.id, type: Person.TYPE.CANDIDATE },
         { username: jane.username },
       ])
